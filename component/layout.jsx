@@ -1,4 +1,6 @@
 import { Container, Row, Navbar, Nav } from 'react-bootstrap';
+import Link from 'next/link'
+
 
 
 
@@ -12,12 +14,16 @@ export const WithLayout = ( Component ) =>
                     </Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="/users">
+                            <Link href="/users">
+                                <a className="nav-link">
                                 Users
-                            </Nav.Link>
-                            <Nav.Link href="/users/new">
+                                </a>
+                            </Link>
+                            <Link href="/users/new">
+                                <a className="nav-link">
                                 New Users
-                            </Nav.Link>
+                                </a>
+                            </Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
