@@ -1,10 +1,19 @@
-import { WithLayout } from "../../component/layout";
 import { Form, Dropdown, Button } from "react-bootstrap";
+import { WithLayout } from "../../component/layout";
+import { useState, useEffect } from "react";
+import { roleService } from "../../service";
 
 
 
 const NewUserPage = () =>
 {
+    const [ roles, setRoles ] = useState( [] );
+    
+    useEffect( () =>
+    {
+        roleService.search().then( ({ data: { content } }) => setRoles( content ) );
+    }, [] );
+
     return <>
     <Form>
         <Form.Group>
@@ -20,18 +29,18 @@ const NewUserPage = () =>
             <Form.Control type="email" placeholder="Email"/>
         </Form.Group>
         <Form.Group>
-            <Form.Label>
-                Roles
-            </Form.Label>
             <Dropdown >
                 <Dropdown.Toggle size="sm" variant="secondary">
-                    Dropdown Button
+                    Roles
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    {
+                    roles.map( role =>
+                    <Dropdown.Item key={ Math.random() }>
+                        { role }
+                    </Dropdown.Item>)
+                    }
                 </Dropdown.Menu>
             </Dropdown>
         </Form.Group>
