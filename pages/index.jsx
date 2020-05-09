@@ -1,6 +1,8 @@
+import { WithLayout } from "../component/layout";
+
 const HomePage = () =>
     <>
         Home Page
     </>;
 
-export default HomePage;
+export default WithLayout( HomePage );
