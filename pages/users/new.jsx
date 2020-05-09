@@ -1,7 +1,8 @@
 import { Form, Dropdown, Button, ButtonGroup, InputGroup, ToggleButtonGroup, ToggleButton, Badge } from "react-bootstrap";
+import { roleService, userService } from "../../service";
 import { WithLayout } from "../../component/layout";
 import { useState, useEffect, useRef } from "react";
-import { roleService } from "../../service";
+import Router from 'next/router'
 
 
 
@@ -37,10 +38,10 @@ const NewUserPage = () =>
         const name = formName.current.value;
         const email = formEmail.current.value;
         
-        // Send this to API
-        // Redirect to /users
+        userService
+            .create({ name, email, roles })
+            .then( () => Router.push( '/users' ) );
     };
-
 
     return <>
     <Form onSubmit={ onFormSubmit }>
