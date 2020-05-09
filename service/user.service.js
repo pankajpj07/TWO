@@ -14,8 +14,6 @@ export class UserService
 
     async search()
     {
-        console.log( '@@@', this.SEARCH_PATH  );
-        
         return axios( this.SEARCH_PATH );
     }
 
