@@ -13,6 +13,10 @@ export const USERS = [
     },
 ];
 
+export const USER_ID = {
+    current: 2,
+};
+
 export const ROLES = [
     'read',
     'write',
