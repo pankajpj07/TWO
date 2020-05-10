@@ -2,6 +2,7 @@ import { Table, Badge, ButtonGroup, Button } from "react-bootstrap";
 import { WithLayout } from "../component/layout";
 import { useState, useEffect } from "react";
 import { userService } from "../service";
+import Router from "next/router";
 
 
 
@@ -43,10 +44,17 @@ const UsersPage = () =>
                 </td>
                 <td>
                     <ButtonGroup size="sm">
-                        <Button variant="primary">
+                        <Button
+                            variant="primary"
+                            onClick={ () => Router.push( `/users/${ id }/edit` )}>
                             Edit
                         </Button>
-                        <Button variant="danger">
+                        <Button
+                            variant="danger"
+                            onClick={ () =>
+                                userService
+                                    .delete({ id })
+                                    .then( () => Router.reload() )}>
                             Delete
                         </Button>
                     </ButtonGroup>

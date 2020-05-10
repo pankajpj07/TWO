@@ -1,25 +1,18 @@
-import { USERS, USER_ID } from '../../service/cache';
+import { USERS, USER_ID } from '../../utility/cache';
+import { serveResponse } from '../../utility/util';
 
 
 
 export default ( request, response ) =>
 {
-    const data = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        statusCode: 404,
-        status: 'error',
-        content: null,
-        errors: [],
-    };
-    
     switch ( request.method )
     {
         case 'GET':
-            data.statusCode = 200;
-            data.status = 'success';
-            data.content = USERS;
+            serveResponse( response, {
+                status: 'success',
+                content: USERS,
+                code: 200,
+            });
             break;
 
         case 'POST':
@@ -29,25 +22,15 @@ export default ( request, response ) =>
                 roles, email, name,
             };
 
-            data.status = 'success';
-            data.statusCode = 201;
-            data.content = user;
             USERS.push( user );
+            serveResponse( response, {
+                status: 'success',
+                content: user,
+                code: 201,
+            });
             break;
 
         default:
             break;
     }
-
-
-    response.statusCode = data.statusCode;
-    Object.keys( data.headers )
-        .map( key => [ key, data.headers[ key ] ])
-        .map( ( [ key, value ] ) =>
-            response.setHeader( key, value ) );
-    response.end( JSON.stringify({
-        ...data.errors.length ? { errors: data.error } : {},
-        content: data.content,
-        status: data.status,
-    }) );
 };

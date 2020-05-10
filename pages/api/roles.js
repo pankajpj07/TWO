@@ -1,13 +1,22 @@
-import { ROLES } from '../../service/cache';
+import { serveResponse } from '../../utility/util';
+import { ROLES } from '../../utility/cache';
 
 
 
 export default ( request, response ) =>
 {
-    response.statusCode = 200;
-    response.setHeader( 'Content-Type', 'application/json' );
-    response.end( JSON.stringify({
-        status: 'success',
-        content: ROLES,
-    }) );
+    switch ( request.method )
+    {
+        case 'GET':
+            serveResponse( response, {
+                status: 'success',
+                content: ROLES,
+                message: 'OK',
+                code: 200,
+            });
+            break;
+
+        default:
+            break;
+    }
 };
